@@ -58,7 +58,10 @@ config :purple_sky_app, PurpleSkyAppWeb.Endpoint,
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/purple_sky_app_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/purple_sky_app_web/(controllers|live|components)/.*(ex|heex)$",
+      ~r"lib/purple_sky_app_web/(live|components)/.*neex$",
+      ~r"lib/purple_sky_app_web/styles/.*ex$",
+      ~r"priv/static/*.styles$"
     ]
   ]
 
@@ -83,3 +86,7 @@ config :phoenix_live_view,
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+config :live_view_native_stylesheet,
+  annotations: true,
+  pretty: true
