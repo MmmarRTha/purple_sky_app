@@ -1,0 +1,33 @@
+<.header class="py-4 bg-white border-b border-gray-200">
+  <div class="max-w-2xl px-4 mx-auto">
+    <div class="flex items-center justify-between">
+      <h1 class="text-xl font-bold text-gray-900">Timeline</h1>
+    </div>
+  </div>
+  <:actions>
+    <.link patch={~p"/posts/new"}>
+      <.button class="px-3 py-[10px] text-sm bg-blue-500 rounded-full hover:bg-blue-600">
+        <.icon name="hero-pencil-square" class="w-5 h-5 font-extrabold text-white" />
+      </.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="max-w-2xl px-4 py-6 mx-auto">
+  <div class="space-y-4">
+    <%= for {id, post} <- @streams.posts do %>
+      <.live_component module={PurpleSkyAppWeb.PostLive.PostComponent} id={id} post={post} />
+    <% end %>
+  </div>
+</div>
+
+<.modal :if={@live_action in [:new, :edit]} id="post-modal" show on_cancel={JS.patch(~p"/posts")}>
+  <.live_component
+    module={PurpleSkyAppWeb.PostLive.FormComponent}
+    id={@post.id || :new}
+    title={@page_title}
+    action={@live_action}
+    post={@post}
+    patch={~p"/posts"}
+  />
+</.modal>
