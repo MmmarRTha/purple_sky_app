@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :purple_sky_app, PurpleSkyApp.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "backend_elixir",
+  password: "postgres_p0p",
   hostname: "localhost",
   database: "purple_sky_app_dev",
   stacktrace: true,
