@@ -6,8 +6,16 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    if(connected?(socket), do: Timeline.subscribe())
-    {:ok, stream(socket, :posts, Timeline.list_posts()), temporary_assigns: [posts: []]}
+    if connected?(socket) do
+      Timeline.subscribe()
+    end
+
+    {:ok,
+     socket
+     |> stream_configure(:posts, dom_id: &"post-#{&1.id}")
+     |> stream(:posts, Timeline.list_posts())
+     |> assign(:page_title, "Listing Posts")
+     |> assign(:post, nil)}
   end
 
   @impl true

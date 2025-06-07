@@ -19,7 +19,7 @@ defmodule PurpleSkyApp.Timeline do
   """
   def list_posts do
     Post
-    |> order_by(desc: :inserted_at)
+    |> order_by([p], desc: p.inserted_at)
     |> Repo.all()
   end
 
