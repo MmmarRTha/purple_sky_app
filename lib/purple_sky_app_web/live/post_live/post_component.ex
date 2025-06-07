@@ -1,10 +1,11 @@
 defmodule PurpleSkyAppWeb.PostLive.PostComponent do
   use PurpleSkyAppWeb, :live_component
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div
-      id={@id}
+      id={"post-#{@post.id}"}
       class="p-4 transition-colors duration-200 bg-white border border-gray-200 rounded-xl hover:bg-gray-50"
     >
       <div class="flex items-start space-x-3">

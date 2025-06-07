@@ -6,7 +6,8 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :posts, Timeline.list_posts())}
+    if(connected?(socket), do: Timeline.subscribe())
+    {:ok, stream(socket, :posts, Timeline.list_posts()), temporary_assigns: [posts: []]}
   end
 
   @impl true
@@ -34,7 +35,12 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
 
   @impl true
   def handle_info({PurpleSkyAppWeb.PostLive.FormComponent, {:saved, post}}, socket) do
-    {:noreply, stream_insert(socket, :posts, post)}
+    {:noreply, stream_insert(socket, :posts, post, at: 0)}
+  end
+
+  @impl true
+  def handle_info({:post_created, post}, socket) do
+    {:noreply, stream_insert(socket, :posts, post, at: 0)}
   end
 
   @impl true

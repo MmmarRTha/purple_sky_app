@@ -18,7 +18,9 @@ defmodule PurpleSkyApp.Timeline do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Post
+    |> order_by(desc: :inserted_at)
+    |> Repo.all()
   end
 
   @doc """
@@ -53,6 +55,7 @@ defmodule PurpleSkyApp.Timeline do
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:post_created)
   end
 
   @doc """
@@ -71,6 +74,7 @@ defmodule PurpleSkyApp.Timeline do
     post
     |> Post.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:post_updated)
   end
 
   @doc """
@@ -100,5 +104,16 @@ defmodule PurpleSkyApp.Timeline do
   """
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
+  end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(PurpleSkyApp.PubSub, "posts")
+  end
+
+  defp broadcast({:error, _reason} = error, _event), do: error
+
+  defp broadcast({:ok, post}, event) do
+    Phoenix.PubSub.broadcast(PurpleSkyApp.PubSub, "posts", {event, post})
+    {:ok, post}
   end
 end
