@@ -1,5 +1,6 @@
 defmodule PurpleSkyAppWeb.PostLive.PostComponent do
   use PurpleSkyAppWeb, :live_component
+  alias PurpleSkyAppWeb.Helpers.TimeHelper
 
   @impl true
   def render(assigns) do
@@ -18,30 +19,30 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
           <div class="flex items-center space-x-2">
             <span class="font-medium text-gray-900">@{@post.username}</span>
             <span class="text-sm text-gray-500">·</span>
-            <span class="text-sm text-gray-500">Just now</span>
+            <span class="text-sm text-gray-500">{TimeHelper.relative_time(@post.updated_at)}</span>
           </div>
           <p class="mt-1 text-gray-900">{@post.body}</p>
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-8">
               <.button
                 phx-click={JS.push("like", value: %{id: @post.id})}
-                class="flex items-center space-x-1 text-gray-500 hover:text-red-500"
+                class="flex items-center p-1 space-x-1 text-gray-500 rounded-full hover:text-pink-400 hover:bg-gray-100"
               >
                 <.icon name="hero-heart" class="w-5 h-5" />
                 <span>{@post.likes_count}</span>
               </.button>
               <.button
                 phx-click={JS.push("repost", value: %{id: @post.id})}
-                class="flex items-center space-x-1 text-gray-500 hover:text-green-500"
+                class="flex items-center p-1 space-x-1 text-gray-500 hover:text-green-500 hover:bg-gray-100"
               >
                 <.icon name="hero-arrow-path" class="w-5 h-5" />
                 <span>{@post.reposts_count}</span>
               </.button>
             </div>
-            <div class="relative">
+            <div class="relative" phx-click-away={JS.hide(to: "#post-actions-#{@id}")}>
               <.button
                 phx-click={JS.toggle(to: "#post-actions-#{@id}")}
-                class="text-gray-500 hover:text-gray-700"
+                class="p-1 text-gray-500 rounded-full hover:text-gray-700 hover:bg-gray-100"
               >
                 <.icon name="hero-ellipsis-horizontal" class="w-5 h-5" />
               </.button>
@@ -52,18 +53,20 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
                 <div class="py-1" role="menu" aria-orientation="vertical">
                   <.link
                     patch={~p"/posts/#{@post}/edit"}
-                    class="flex items-center px-4 py-2 text-sm text-sky-500 hover:bg-gray-100 hover:text-sky-400"
+                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100"
                     role="menuitem"
                   >
-                    <.icon name="hero-pencil-square" class="w-5 h-5 mr-2" /> Edit
+                    <span>Edit Post</span>
+                    <.icon name="hero-pencil-square" class="w-5 h-5" />
                   </.link>
                   <.link
                     phx-click={JS.push("delete", value: %{id: @post.id}) |> hide("##{@id}")}
                     data-confirm="Are you sure?"
-                    class="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-500 hover:bg-gray-100"
+                    class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100"
                     role="menuitem"
                   >
-                    <.icon name="hero-trash" class="w-5 h-5 mr-2" /> Delete
+                    <span>Delete Post</span>
+                    <.icon name="hero-trash" class="w-5 h-5" />
                   </.link>
                 </div>
               </div>
