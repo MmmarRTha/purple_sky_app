@@ -64,7 +64,7 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
                     <.icon name="hero-pencil-square" class="w-5 h-5" />
                   </.link>
                   <.link
-                    phx-click={JS.push("delete", value: %{id: @post.id}) |> hide("##{@id}")}
+                    phx-click={JS.push("delete", value: %{id: @post.id})}
                     data-confirm="Are you sure?"
                     class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100"
                     role="menuitem"
