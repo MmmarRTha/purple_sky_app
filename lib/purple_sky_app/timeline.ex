@@ -26,6 +26,22 @@ defmodule PurpleSkyApp.Timeline do
   @doc """
   Gets a single post.
 
+  Returns nil if the Post does not exist.
+
+  ## Examples
+
+      iex> get_post(123)
+      %Post{}
+
+      iex> get_post(456)
+      nil
+
+  """
+  def get_post(id), do: Repo.get(Post, id)
+
+  @doc """
+  Gets a single post.
+
   Raises `Ecto.NoResultsError` if the Post does not exist.
 
   ## Examples
@@ -91,6 +107,7 @@ defmodule PurpleSkyApp.Timeline do
   """
   def delete_post(%Post{} = post) do
     Repo.delete(post)
+    |> broadcast(:post_deleted)
   end
 
   @doc """

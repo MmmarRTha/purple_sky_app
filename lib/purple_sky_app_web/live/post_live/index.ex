@@ -55,10 +55,19 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    post = Timeline.get_post!(id)
-    {:ok, _} = Timeline.delete_post(post)
-
+  def handle_info({:post_deleted, post}, socket) do
     {:noreply, stream_delete(socket, :posts, post)}
+  end
+
+  @impl true
+  def handle_event("delete", %{"id" => id}, socket) do
+    case Timeline.get_post(id) do
+      nil ->
+        {:noreply, socket}
+
+      post ->
+        {:ok, _} = Timeline.delete_post(post)
+        {:noreply, stream_delete(socket, :posts, post)}
+    end
   end
 end
