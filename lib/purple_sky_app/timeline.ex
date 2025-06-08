@@ -18,8 +18,26 @@ defmodule PurpleSkyApp.Timeline do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Post
+    |> order_by([p], desc: p.inserted_at)
+    |> Repo.all()
   end
+
+  @doc """
+  Gets a single post.
+
+  Returns nil if the Post does not exist.
+
+  ## Examples
+
+      iex> get_post(123)
+      %Post{}
+
+      iex> get_post(456)
+      nil
+
+  """
+  def get_post(id), do: Repo.get(Post, id)
 
   @doc """
   Gets a single post.
@@ -53,6 +71,7 @@ defmodule PurpleSkyApp.Timeline do
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:post_created)
   end
 
   @doc """
@@ -71,6 +90,7 @@ defmodule PurpleSkyApp.Timeline do
     post
     |> Post.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:post_updated)
   end
 
   @doc """
@@ -87,6 +107,7 @@ defmodule PurpleSkyApp.Timeline do
   """
   def delete_post(%Post{} = post) do
     Repo.delete(post)
+    |> broadcast(:post_deleted)
   end
 
   @doc """
@@ -100,5 +121,32 @@ defmodule PurpleSkyApp.Timeline do
   """
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
+  end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(PurpleSkyApp.PubSub, "posts")
+  end
+
+  defp broadcast({:error, _reason} = error, _event), do: error
+
+  defp broadcast({:ok, post}, event) do
+    Phoenix.PubSub.broadcast(PurpleSkyApp.PubSub, "posts", {event, post})
+    {:ok, post}
+  end
+
+  def increment_likes(%Post{id: id}) do
+    {1, [post]} =
+      from(p in Post, where: p.id == ^id, select: p)
+      |> Repo.update_all(inc: [likes_count: 1])
+
+    broadcast({:ok, post}, :post_updated)
+  end
+
+  def increment_reposts(%Post{id: id}) do
+    {1, [post]} =
+      from(p in Post, where: p.id == ^id, select: p)
+      |> Repo.update_all(inc: [reposts_count: 1])
+
+    broadcast({:ok, post}, :post_updated)
   end
 end

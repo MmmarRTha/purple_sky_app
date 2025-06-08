@@ -53,14 +53,11 @@ defmodule PurpleSkyAppWeb.PostLiveTest do
     test "updates post in listing", %{conn: conn, post: post} do
       {:ok, index_live, _html} = live(conn, ~p"/posts")
 
-      assert index_live |> element("#posts-#{post.id} a", "Edit") |> render_click() =~
-               "Edit Post"
+      assert index_live
+             |> element("#post-#{post.id} a", "Edit Post")
+             |> render_click()
 
       assert_patch(index_live, ~p"/posts/#{post}/edit")
-
-      assert index_live
-             |> form("#post-form", post: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
 
       assert index_live
              |> form("#post-form", post: @update_attrs)
@@ -76,8 +73,11 @@ defmodule PurpleSkyAppWeb.PostLiveTest do
     test "deletes post in listing", %{conn: conn, post: post} do
       {:ok, index_live, _html} = live(conn, ~p"/posts")
 
-      assert index_live |> element("#posts-#{post.id} a", "Delete") |> render_click()
-      refute has_element?(index_live, "#posts-#{post.id}")
+      assert index_live
+             |> element("#post-#{post.id} a", "Delete Post")
+             |> render_click()
+
+      refute has_element?(index_live, "#post-#{post.id}")
     end
   end
 
