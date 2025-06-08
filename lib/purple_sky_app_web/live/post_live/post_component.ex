@@ -24,20 +24,24 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
           <p class="mt-1 text-gray-900">{@post.body}</p>
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-8">
-              <.button
-                phx-click={JS.push("like", value: %{id: @post.id})}
+              <a
+                href="#"
+                phx-click="like"
+                phx-target={@myself}
                 class="flex items-center p-1 space-x-1 text-gray-500 rounded-full hover:text-pink-400 hover:bg-gray-100"
               >
                 <.icon name="hero-heart" class="w-5 h-5" />
                 <span>{@post.likes_count}</span>
-              </.button>
-              <.button
-                phx-click={JS.push("repost", value: %{id: @post.id})}
+              </a>
+              <a
+                href="#"
+                phx-click="repost"
+                phx-target={@myself}
                 class="flex items-center p-1 space-x-1 text-gray-500 hover:text-green-500 hover:bg-gray-100"
               >
                 <.icon name="hero-arrow-path" class="w-5 h-5" />
                 <span>{@post.reposts_count}</span>
-              </.button>
+              </a>
             </div>
             <div class="relative" phx-click-away={JS.hide(to: "#post-actions-#{@id}")}>
               <.button
@@ -76,5 +80,17 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
       </div>
     </div>
     """
+  end
+
+  @impl true
+  def handle_event("like", _, socket) do
+    PurpleSkyApp.Timeline.increment_likes(socket.assigns.post)
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("repost", _, socket) do
+    PurpleSkyApp.Timeline.increment_reposts(socket.assigns.post)
+    {:noreply, socket}
   end
 end

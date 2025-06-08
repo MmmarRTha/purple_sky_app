@@ -6,9 +6,7 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    if connected?(socket) do
-      Timeline.subscribe()
-    end
+    if(connected?(socket), do: Timeline.subscribe())
 
     {:ok,
      socket
@@ -49,6 +47,11 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
   @impl true
   def handle_info({:post_created, post}, socket) do
     {:noreply, stream_insert(socket, :posts, post, at: 0)}
+  end
+
+  @impl true
+  def handle_info({:post_updated, post}, socket) do
+    {:noreply, stream_insert(socket, :posts, post)}
   end
 
   @impl true
