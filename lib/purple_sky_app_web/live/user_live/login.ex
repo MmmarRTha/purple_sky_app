@@ -3,13 +3,12 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
 
   def render(assigns) do
     ~H"""
-    <div class="flex items-center justify-center min-h-screen dark:bg-slate-900">
+    <div class="flex items-center justify-center dark:bg-slate-800">
       <div class="w-full max-w-md">
-        <div class="bg-[#161e27] p-8 rounded-lg">
+        <div class="p-8 border border-gray-700 rounded-2xl">
           <div class="mb-8 text-right">
-            <div class="text-[#aebbc9] text-3xl font-extrabold mb-2"></div>
-            <div class="text-[#208bfe] text-5xl font-extrabold">Sign in</div>
-            <div class="mt-2 text-lg font-semibold text-slate-400">Don't have an account?</div>
+            <div class="text-5xl font-extrabold text-purple-400">Sign in</div>
+            <div class="mt-2 text-lg font-semibold text-slate-300">Don't have an account?</div>
           </div>
 
           <.simple_form
@@ -19,12 +18,12 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
             phx-update="ignore"
             class="space-y-6"
           >
-            <div class="space-y-4">
+            <div class="space-y-4 dark:bg-slate-800">
               <div>
-                <label class="block text-sm font-semibold text-[#93a5b7] mb-2">Email</label>
+                <label class="block mb-2 text-sm font-semibold text-slate-300">Email</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="h-5 w-5 text-[#788ea5]" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24">
                       <path
                         fill="currentColor"
                         fill-rule="evenodd"
@@ -36,7 +35,7 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
                   <.input
                     field={@form[:email]}
                     type="email"
-                    class="pl-10 bg-[#1e2936] text-[#f1f3f5] border-0 rounded-lg w-full"
+                    class="w-full pl-16 text-gray-200 border-0 rounded-lg"
                     placeholder="Enter your email"
                     autocomplete="username"
                     required
@@ -45,10 +44,10 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
               </div>
 
               <div>
-                <label class="block text-sm font-semibold text-[#93a5b7] mb-2">Password</label>
+                <label class="block mb-2 text-sm font-semibold text-slate-300">Password</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="h-5 w-5 text-[#788ea5]" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24">
                       <path
                         fill="currentColor"
                         fill-rule="evenodd"
@@ -60,7 +59,7 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
                   <.input
                     field={@form[:password]}
                     type="password"
-                    class="pl-10 bg-[#1e2936] text-[#f1f3f5] border-0 rounded-lg w-full"
+                    class="w-full pl-10 text-gray-200 border-0 rounded-lg"
                     placeholder="Enter your password"
                     autocomplete="current-password"
                     required
@@ -74,13 +73,13 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
                 <.input
                   field={@form[:remember_me]}
                   type="checkbox"
-                  class="rounded bg-[#1e2936] border-[#2e4052]"
+                  class="rounded bg-slate-900 border-slate-700"
                 />
-                <label class="ml-2 text-sm text-[#aebbc9]">Keep me logged in</label>
+                <label class="ml-2 text-sm text-gray-300">Keep me logged in</label>
               </div>
               <.link
                 href={~p"/users/reset-password"}
-                class="text-sm font-semibold text-[#aebbc9] hover:text-[#208bfe]"
+                class="text-sm font-semibold text-gray-300 hover:text-purple-600"
               >
                 Forgot password?
               </.link>
@@ -94,17 +93,17 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
                 Back
               </.link>
               <div class="flex-1"></div>
-              <.button class="px-6 py-3 bg-[#208bfe] text-white font-semibold rounded-lg hover:bg-[#1a7fe6]">
+              <.button class="px-6 py-3 font-semibold text-white bg-purple-600 rounded-lg hover:bg-purple-500">
                 Sign in
               </.button>
             </div>
           </.simple_form>
 
           <div class="mt-6 text-center">
-            <span class="text-[#aebbc9]">Don't have an account?</span>
+            <span class="text-slate-300">Don't have an account?</span>
             <.link
               navigate={~p"/users/register"}
-              class="ml-2 font-semibold text-[#208bfe] hover:underline"
+              class="ml-2 font-semibold text-purple-300 hover:underline"
             >
               Sign up
             </.link>
