@@ -232,7 +232,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75",
-        "text-sm leading-6",
+        "leading-6",
         @class
       ]}
       {@rest}
