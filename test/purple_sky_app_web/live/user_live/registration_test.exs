@@ -17,7 +17,7 @@ defmodule PurpleSkyAppWeb.UserLive.RegistrationTest do
         conn
         |> log_in_user(user_fixture())
         |> live(~p"/users/register")
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/posts")
 
       assert {:ok, _conn} = result
     end
@@ -45,7 +45,7 @@ defmodule PurpleSkyAppWeb.UserLive.RegistrationTest do
       render_submit(form)
       conn = follow_trigger_action(form, conn)
 
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == ~p"/posts"
 
       # Now do a logged in request and assert on the menu
       conn = get(conn, ~p"/")
@@ -81,7 +81,7 @@ defmodule PurpleSkyAppWeb.UserLive.RegistrationTest do
         |> render_click()
         |> follow_redirect(conn, ~p"/users/log-in")
 
-      assert login_html =~ "Log in"
+      assert login_html =~ "Sign in"
     end
   end
 end

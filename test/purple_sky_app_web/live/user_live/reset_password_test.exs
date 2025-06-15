@@ -97,7 +97,7 @@ defmodule PurpleSkyAppWeb.UserLive.ResetPasswordTest do
         |> render_click()
         |> follow_redirect(conn, ~p"/users/log-in")
 
-      assert conn.resp_body =~ "Log in"
+      assert conn.resp_body =~ "Sign in"
     end
 
     test "redirects to registration page when the Register button is clicked", %{

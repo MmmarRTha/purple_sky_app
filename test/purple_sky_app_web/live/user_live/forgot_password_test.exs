@@ -21,7 +21,7 @@ defmodule PurpleSkyAppWeb.UserLive.ForgotPasswordTest do
         conn
         |> log_in_user(user_fixture())
         |> live(~p"/users/reset-password")
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/posts")
 
       assert {:ok, _conn} = result
     end

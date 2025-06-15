@@ -8,9 +8,9 @@ defmodule PurpleSkyAppWeb.UserLive.LoginTest do
     test "renders log in page", %{conn: conn} do
       {:ok, _lv, html} = live(conn, ~p"/users/log-in")
 
-      assert html =~ "Log in"
+      assert html =~ "Sign in"
       assert html =~ "Sign up"
-      assert html =~ "Forgot your password?"
+      assert html =~ "Forgot password?"
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -18,7 +18,7 @@ defmodule PurpleSkyAppWeb.UserLive.LoginTest do
         conn
         |> log_in_user(user_fixture())
         |> live(~p"/users/log-in")
-        |> follow_redirect(conn, ~p"/")
+        |> follow_redirect(conn, ~p"/posts")
 
       assert {:ok, _conn} = result
     end
@@ -36,7 +36,7 @@ defmodule PurpleSkyAppWeb.UserLive.LoginTest do
 
       conn = submit_form(form, conn)
 
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == ~p"/posts"
     end
 
     test "redirects to login page with a flash error if there are no valid credentials", %{
@@ -77,7 +77,7 @@ defmodule PurpleSkyAppWeb.UserLive.LoginTest do
 
       {:ok, conn} =
         lv
-        |> element(~s|main a:fl-contains("Forgot your password?")|)
+        |> element(~s|main a:fl-contains("Forgot password?")|)
         |> render_click()
         |> follow_redirect(conn, ~p"/users/reset-password")
 
