@@ -23,7 +23,7 @@ defmodule PurpleSkyAppWeb.PostLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Post")
+    |> assign(:page_title, "Update Post")
     |> assign(:post, Timeline.get_post!(id))
   end
 

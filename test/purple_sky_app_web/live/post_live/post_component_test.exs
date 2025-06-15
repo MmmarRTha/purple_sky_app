@@ -24,7 +24,7 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponentTest do
       {:ok, view, _html} = live(conn, ~p"/posts")
 
       html = render(view)
-      assert html =~ "Edit Post"
+      assert html =~ "Update Post"
       assert html =~ "Delete Post"
     end
 
@@ -42,7 +42,7 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponentTest do
       {:ok, view, _html} = live(conn, ~p"/posts")
 
       assert view
-             |> element("#post-#{post.id} a", "Edit Post")
+             |> element("#post-#{post.id} a", "Update Post")
              |> render_click()
 
       assert_patch(view, ~p"/posts/#{post}/edit")

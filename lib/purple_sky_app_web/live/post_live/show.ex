@@ -17,5 +17,5 @@ defmodule PurpleSkyAppWeb.PostLive.Show do
   end
 
   defp page_title(:show), do: "Show Post"
-  defp page_title(:edit), do: "Edit Post"
+  defp page_title(:edit), do: "Update Post"
 end

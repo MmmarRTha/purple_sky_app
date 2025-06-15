@@ -54,7 +54,7 @@ defmodule PurpleSkyAppWeb.PostLiveTest do
       {:ok, index_live, _html} = live(conn, ~p"/posts")
 
       assert index_live
-             |> element("#post-#{post.id} a", "Edit Post")
+             |> element("#post-#{post.id} a", "Update Post")
              |> render_click()
 
       assert_patch(index_live, ~p"/posts/#{post}/edit")
@@ -94,8 +94,8 @@ defmodule PurpleSkyAppWeb.PostLiveTest do
     test "updates post within modal", %{conn: conn, post: post} do
       {:ok, show_live, _html} = live(conn, ~p"/posts/#{post}")
 
-      assert show_live |> element("a", "Edit") |> render_click() =~
-               "Edit Post"
+      assert show_live |> element("a", "Update post") |> render_click() =~
+               "Update Post"
 
       assert_patch(show_live, ~p"/posts/#{post}/show/edit")
 

@@ -73,7 +73,7 @@ defmodule PurpleSkyAppWeb.PostLive.ErrorHandlingTest do
       {:ok, view2, _html} = live(conn, ~p"/posts")
 
       assert view1
-             |> element("#post-#{post.id} a", "Edit Post")
+             |> element("#post-#{post.id} a", "Update Post")
              |> render_click()
 
       assert view1

@@ -12,8 +12,8 @@ defmodule PurpleSkyAppWeb.UserLive.ForgotPasswordTest do
       {:ok, lv, html} = live(conn, ~p"/users/reset-password")
 
       assert html =~ "Forgot your password?"
-      assert has_element?(lv, ~s|a[href="#{~p"/users/register"}"]|, "Register")
-      assert has_element?(lv, ~s|a[href="#{~p"/users/log-in"}"]|, "Log in")
+      assert has_element?(lv, ~s|a[href="#{~p"/users/register"}"]|, "Sign up")
+      assert has_element?(lv, ~s|a[href="#{~p"/users/log-in"}"]|, "Sign in")
     end
 
     test "redirects if already logged in", %{conn: conn} do
