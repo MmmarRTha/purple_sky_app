@@ -18,7 +18,7 @@ defmodule PurpleSkyAppWeb.UserLive.Login do
             id="login_form"
             action={~p"/users/log-in"}
             phx-update="ignore"
-            class="space-y-6"
+            class="space-y-4"
           >
             <div class="space-y-4 dark:bg-slate-800">
               <div>
