@@ -10,7 +10,7 @@ defmodule PurpleSkyAppWeb.UserLive.Registration do
       <div class="w-full max-w-md">
         <div class="p-8 border border-gray-200 shadow-2xl dark:shadow-slate-400 dark:border-gray-500 rounded-2xl">
           <div class="mb-8 text-right">
-            <div class="text-5xl font-extrabold text-purple-500 dark:text-purple-400">Sign up</div>
+            <.header class="text-5xl">Sign up</.header>
           </div>
 
           <.simple_form

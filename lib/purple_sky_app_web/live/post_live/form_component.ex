@@ -7,9 +7,8 @@ defmodule PurpleSkyAppWeb.PostLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.header>
+      <.header class="text-2xl">
         {@title}
-        <:subtitle>Use this form to manage post records in your database.</:subtitle>
       </.header>
 
       <.simple_form

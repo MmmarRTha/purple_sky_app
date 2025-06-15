@@ -5,85 +5,173 @@ defmodule PurpleSkyAppWeb.UserLive.Settings do
 
   def render(assigns) do
     ~H"""
-    <.header class="text-center">
-      Account Settings
-      <:subtitle>Manage your account email address and password settings</:subtitle>
-    </.header>
+    <div class="flex items-center justify-center dark:bg-slate-800">
+      <div class="w-full">
+        <div class="p-8 border border-gray-200 shadow-2xl dark:shadow-slate-400 dark:border-gray-500 rounded-2xl">
+          <div class="mb-8 text-right">
+            <.header class="text-5xl">
+              Account Settings
+              <:subtitle>
+                Manage your account email address and password settings
+              </:subtitle>
+            </.header>
+          </div>
 
-    <div class="space-y-12 divide-y">
-      <div>
-        <.simple_form
-          for={@email_form}
-          id="email_form"
-          phx-submit="update_email"
-          phx-change="validate_email"
-        >
-          <.input
-            field={@email_form[:email]}
-            type="email"
-            label="Email"
-            autocomplete="username"
-            required
-          />
-          <.input
-            field={@email_form[:current_password]}
-            name="current_password"
-            id="current_password_for_email"
-            type="password"
-            label="Current password"
-            value={@email_form_current_password}
-            autocomplete="current-password"
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
-          </:actions>
-        </.simple_form>
-      </div>
-      <div>
-        <.simple_form
-          for={@password_form}
-          id="password_form"
-          action={~p"/users/log-in?_action=password-updated"}
-          method="post"
-          phx-change="validate_password"
-          phx-submit="update_password"
-          phx-trigger-action={@trigger_submit}
-        >
-          <input
-            name={@password_form[:email].name}
-            type="hidden"
-            id="hidden_user_email"
-            autocomplete="username"
-            value={@current_email}
-          />
-          <.input
-            field={@password_form[:password]}
-            type="password"
-            label="New password"
-            autocomplete="new-password"
-            required
-          />
-          <.input
-            field={@password_form[:password_confirmation]}
-            type="password"
-            label="Confirm new password"
-            autocomplete="new-password"
-          />
-          <.input
-            field={@password_form[:current_password]}
-            name="current_password"
-            type="password"
-            label="Current password"
-            id="current_password_for_password"
-            value={@current_password}
-            autocomplete="current-password"
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
-          </:actions>
-        </.simple_form>
+          <div class="space-y-12 divide-y">
+            <div>
+              <.simple_form
+                for={@email_form}
+                id="email_form"
+                phx-submit="update_email"
+                phx-change="validate_email"
+                class="space-y-4"
+              >
+                <div class="space-y-4 dark:bg-slate-800">
+                  <div>
+                    <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                      Email
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <.icon name="hero-at-symbol-mini" class="text-gray-500" />
+                      </div>
+                      <.input
+                        field={@email_form[:email]}
+                        type="email"
+                        class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                        placeholder="Enter your email"
+                        autocomplete="username"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                      Current Password
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <.icon name="hero-lock-closed" class="w-5 h-5 text-gray-500" />
+                      </div>
+                      <.input
+                        field={@email_form[:current_password]}
+                        name="current_password"
+                        id="current_password_for_email"
+                        type="password"
+                        class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                        placeholder="Enter your current password"
+                        value={@email_form_current_password}
+                        autocomplete="current-password"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-end pt-4">
+                  <.button
+                    class="px-6 py-3 text-base font-semibold text-white bg-purple-500 rounded-lg hover:bg-purple-600 dark:hover:bg-purple-400"
+                    phx-disable-with="Changing..."
+                  >
+                    Change Email
+                  </.button>
+                </div>
+              </.simple_form>
+            </div>
+
+            <div class="pt-3">
+              <.simple_form
+                for={@password_form}
+                id="password_form"
+                action={~p"/users/log-in?_action=password-updated"}
+                method="post"
+                phx-change="validate_password"
+                phx-submit="update_password"
+                phx-trigger-action={@trigger_submit}
+                class="space-y-4"
+              >
+                <input
+                  name={@password_form[:email].name}
+                  type="hidden"
+                  id="hidden_user_email"
+                  autocomplete="username"
+                  value={@current_email}
+                />
+
+                <div class="space-y-4 dark:bg-slate-800">
+                  <div>
+                    <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                      New Password
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <.icon name="hero-lock-closed" class="w-5 h-5 text-gray-500" />
+                      </div>
+                      <.input
+                        field={@password_form[:password]}
+                        type="password"
+                        class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                        placeholder="Enter new password"
+                        autocomplete="new-password"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                      Confirm New Password
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <.icon name="hero-lock-closed" class="w-5 h-5 text-gray-500" />
+                      </div>
+                      <.input
+                        field={@password_form[:password_confirmation]}
+                        type="password"
+                        class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                        placeholder="Confirm new password"
+                        autocomplete="new-password"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                      Current Password
+                    </label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <.icon name="hero-lock-closed" class="w-5 h-5 text-gray-500" />
+                      </div>
+                      <.input
+                        field={@password_form[:current_password]}
+                        name="current_password"
+                        type="password"
+                        class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                        placeholder="Enter your current password"
+                        id="current_password_for_password"
+                        value={@current_password}
+                        autocomplete="current-password"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-end pt-4">
+                  <.button
+                    class="px-6 py-3 text-base font-semibold text-white bg-purple-500 rounded-lg hover:bg-purple-600 dark:hover:bg-purple-400"
+                    phx-disable-with="Changing..."
+                  >
+                    Change Password
+                  </.button>
+                </div>
+              </.simple_form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     """

@@ -62,7 +62,7 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
                     class="flex items-center justify-between px-5 py-2 text-sm font-semibold text-gray-600 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-600"
                     role="menuitem"
                   >
-                    <span>Edit Post</span>
+                    <span>Update Post</span>
                     <.icon name="hero-pencil-square" class="w-5 h-5" />
                   </.link>
                   <.link
