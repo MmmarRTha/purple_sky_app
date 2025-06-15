@@ -8,8 +8,8 @@ defmodule PurpleSkyAppWeb.UserLive.RegistrationTest do
     test "renders registration page", %{conn: conn} do
       {:ok, _lv, html} = live(conn, ~p"/users/register")
 
-      assert html =~ "Register"
-      assert html =~ "Log in"
+      assert html =~ "Sign up"
+      assert html =~ "Sign in"
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -30,7 +30,7 @@ defmodule PurpleSkyAppWeb.UserLive.RegistrationTest do
         |> element("#registration_form")
         |> render_change(user: %{"email" => "with spaces", "password" => "too short"})
 
-      assert result =~ "Register"
+      assert result =~ "Sign up"
       assert result =~ "must have the @ sign and no spaces"
       assert result =~ "should be at least 12 character"
     end
@@ -77,7 +77,7 @@ defmodule PurpleSkyAppWeb.UserLive.RegistrationTest do
 
       {:ok, _login_live, login_html} =
         lv
-        |> element(~s|main a:fl-contains("Log in")|)
+        |> element(~s|main a:fl-contains("Sign in")|)
         |> render_click()
         |> follow_redirect(conn, ~p"/users/log-in")
 

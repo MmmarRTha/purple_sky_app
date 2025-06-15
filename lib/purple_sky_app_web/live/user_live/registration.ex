@@ -6,47 +6,112 @@ defmodule PurpleSkyAppWeb.UserLive.Registration do
 
   def render(assigns) do
     ~H"""
-    <div class="max-w-sm mx-auto">
-      <.header class="text-center">
-        Register for an account
-        <:subtitle>
-          Already registered?
-          <.link navigate={~p"/users/log-in"} class="font-semibold text-brand hover:underline">
-            Log in
-          </.link>
-          to your account now.
-        </:subtitle>
-      </.header>
+    <div class="flex items-center justify-center dark:bg-slate-800">
+      <div class="w-full max-w-md">
+        <div class="p-8 border border-gray-200 shadow-2xl dark:shadow-slate-400 dark:border-gray-500 rounded-2xl">
+          <div class="mb-8 text-right">
+            <div class="text-5xl font-extrabold text-purple-500 dark:text-purple-400">Sign up</div>
+          </div>
 
-      <.simple_form
-        for={@form}
-        id="registration_form"
-        phx-submit="save"
-        phx-change="validate"
-        phx-trigger-action={@trigger_submit}
-        action={~p"/users/log-in?_action=registered"}
-        method="post"
-      >
-        <.error :if={@check_errors}>
-          Oops, something went wrong! Please check the errors below.
-        </.error>
+          <.simple_form
+            for={@form}
+            id="registration_form"
+            phx-submit="save"
+            phx-change="validate"
+            phx-trigger-action={@trigger_submit}
+            action={~p"/users/log-in?_action=registered"}
+            method="post"
+            class="space-y-4"
+          >
+            <.error :if={@check_errors}>
+              <div class="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
+                Oops, something went wrong! Please check the errors below.
+              </div>
+            </.error>
 
-        <.input field={@form[:email]} type="email" label="Email" autocomplete="username" required />
+            <div class="space-y-4 dark:bg-slate-800">
+              <div>
+                <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                  Email
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <.icon name="hero-at-symbol-mini" class="text-gray-500" />
+                  </div>
+                  <.input
+                    field={@form[:email]}
+                    type="email"
+                    class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                    placeholder="Enter your email"
+                    autocomplete="username"
+                    required
+                  />
+                </div>
+              </div>
 
-        <.input field={@form[:username]} type="text" label="Username" required />
+              <div>
+                <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                  Username
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <.icon name="hero-user" class="text-gray-500" />
+                  </div>
+                  <.input
+                    field={@form[:username]}
+                    type="text"
+                    class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                    placeholder="Choose a username"
+                    required
+                  />
+                </div>
+              </div>
 
-        <.input
-          field={@form[:password]}
-          type="password"
-          label="Password"
-          autocomplete="new-password"
-          required
-        />
+              <div>
+                <label class="block mb-2 text-sm font-semibold dark:text-slate-300 text-slate-500">
+                  Password
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <.icon name="hero-lock-closed" class="w-5 h-5 text-gray-500" />
+                  </div>
+                  <.input
+                    field={@form[:password]}
+                    type="password"
+                    class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
 
-        <:actions>
-          <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
-        </:actions>
-      </.simple_form>
+            <div class="flex items-center justify-between pt-4">
+              <.link
+                navigate={~p"/"}
+                class="px-6 py-3 font-semibold text-gray-600 bg-gray-200 rounded-lg dark:text-gray-200 hover:bg-gray-300 dark:bg-slate-600 dark:hover:bg-slate-500"
+              >
+                Back
+              </.link>
+              <div class="flex-1"></div>
+              <.button class="px-6 py-3 text-base font-semibold text-white bg-purple-500 rounded-lg hover:bg-purple-600 dark:hover:bg-purple-400">
+                Create account
+              </.button>
+            </div>
+          </.simple_form>
+
+          <div class="mt-6 text-center">
+            <span class="dark:text-slate-300 text-slate-500">Already have an account?</span>
+            <.link
+              navigate={~p"/users/log-in"}
+              class="ml-2 font-semibold text-purple-600 dark:text-purple-300 hover:underline"
+            >
+              Sign in
+            </.link>
+          </div>
+        </div>
+      </div>
     </div>
     """
   end

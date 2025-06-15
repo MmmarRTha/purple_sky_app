@@ -5,7 +5,7 @@ defmodule PurpleSkyAppWeb.UserLive.ResetPassword do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="max-w-sm mx-auto">
       <.header class="text-center">Reset Password</.header>
 
       <.simple_form
@@ -37,9 +37,9 @@ defmodule PurpleSkyAppWeb.UserLive.ResetPassword do
         </:actions>
       </.simple_form>
 
-      <p class="text-center text-sm mt-4">
-        <.link href={~p"/users/register"}>Register</.link>
-        | <.link href={~p"/users/log-in"}>Log in</.link>
+      <p class="mt-4 text-sm text-center">
+        <.link href={~p"/users/register"}>Sign up</.link>
+        | <.link href={~p"/users/log-in"}>Sign in</.link>
       </p>
     </div>
     """
