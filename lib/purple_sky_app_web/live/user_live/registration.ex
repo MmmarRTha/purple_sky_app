@@ -24,9 +24,7 @@ defmodule PurpleSkyAppWeb.UserLive.Registration do
             class="space-y-4"
           >
             <.error :if={@check_errors}>
-              <div class="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
-                Oops, something went wrong! Please check the errors below.
-              </div>
+              Oops, something went wrong! Please check the errors below.
             </.error>
 
             <div class="space-y-4 dark:bg-slate-800">
@@ -35,13 +33,10 @@ defmodule PurpleSkyAppWeb.UserLive.Registration do
                   Email
                 </label>
                 <div class="relative">
-                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <.icon name="hero-at-symbol-mini" class="text-gray-500" />
-                  </div>
                   <.input
                     field={@form[:email]}
                     type="email"
-                    class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                    class="text-gray-600"
                     placeholder="Enter your email"
                     autocomplete="username"
                     required
@@ -54,13 +49,10 @@ defmodule PurpleSkyAppWeb.UserLive.Registration do
                   Username
                 </label>
                 <div class="relative">
-                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <.icon name="hero-user" class="text-gray-500" />
-                  </div>
                   <.input
                     field={@form[:username]}
                     type="text"
-                    class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                    class="text-gray-600 "
                     placeholder="Choose a username"
                     required
                   />
@@ -72,13 +64,10 @@ defmodule PurpleSkyAppWeb.UserLive.Registration do
                   Password
                 </label>
                 <div class="relative">
-                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <.icon name="hero-lock-closed" class="w-5 h-5 text-gray-500" />
-                  </div>
                   <.input
                     field={@form[:password]}
                     type="password"
-                    class="block w-full py-2 pl-3 pr-10 text-right text-gray-600 border-0 rounded-lg dark:text-gray-200 focus:outline-none"
+                    class="text-gray-600"
                     placeholder="Create a password"
                     autocomplete="new-password"
                     required

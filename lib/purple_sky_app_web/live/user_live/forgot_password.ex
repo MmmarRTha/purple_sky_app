@@ -37,7 +37,7 @@ defmodule PurpleSkyAppWeb.UserLive.ForgotPassword do
               </div>
             </div>
 
-            <div class="flex items-center justify-end pt-4">
+            <div class="flex items-center justify-center pt-4">
               <.button
                 class="px-6 py-3 text-base font-semibold text-white bg-purple-500 rounded-lg hover:bg-purple-600 dark:hover:bg-purple-400"
                 phx-disable-with="Sending..."

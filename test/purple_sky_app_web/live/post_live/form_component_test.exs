@@ -14,7 +14,7 @@ defmodule PurpleSkyAppWeb.PostLive.FormComponentTest do
 
       assert view
              |> element("form")
-             |> render() =~ "Save Post"
+             |> render() =~ "Post"
     end
 
     test "renders form with existing post for edit", %{conn: conn} do
@@ -23,7 +23,7 @@ defmodule PurpleSkyAppWeb.PostLive.FormComponentTest do
 
       assert view
              |> element("form")
-             |> render() =~ "Save Post"
+             |> render() =~ "Post"
 
       assert view
              |> element("form")

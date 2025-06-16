@@ -355,9 +355,9 @@ defmodule PurpleSkyAppWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6 min-h-[6rem]",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          "block w-full sm:leading-6 min-h-[6rem] bg-slate-900",
+          @errors == [] && "border-none",
+          @errors != [] && "border-none"
         ]}
         {@rest}
       >{Phoenix.HTML.Form.normalize_value("textarea", @value)}</textarea>
@@ -379,7 +379,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
         class={[
           "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          @errors != [] && "border-rose-300 focus:border-rose-300"
         ]}
         {@rest}
       />
@@ -409,7 +409,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="flex gap-3 mt-3 text-sm leading-6 text-rose-600">
+    <p class="flex gap-3 mt-3 text-sm leading-6 text-rose-400">
       <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       {render_slot(@inner_block)}
     </p>
