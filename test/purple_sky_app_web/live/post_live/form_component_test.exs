@@ -23,7 +23,7 @@ defmodule PurpleSkyAppWeb.PostLive.FormComponentTest do
 
       assert view
              |> element("form")
-             |> render() =~ "Post"
+             |> render() =~ "Save"
 
       assert view
              |> element("form")

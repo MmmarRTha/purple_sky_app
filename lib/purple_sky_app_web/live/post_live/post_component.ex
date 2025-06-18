@@ -7,11 +7,11 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
     ~H"""
     <div
       id={"post-#{@post.id}"}
-      class="p-4 transition-colors duration-200 bg-white border border-gray-200 hover:bg-gray-50 dark:bg-slate-800 dark:border-slate-600 dark:hover:bg-slate-700/15"
+      class="p-4 bg-white border border-gray-200 transition-colors duration-200 hover:bg-gray-50 dark:bg-slate-800 dark:border-slate-600 dark:hover:bg-slate-700/15"
     >
       <div class="flex items-start space-x-3">
         <div class="flex-shrink-0">
-          <div class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full">
+          <div class="flex justify-center items-center w-10 h-10 bg-gray-200 rounded-full">
             <span class="font-medium text-gray-500">{String.first(@post.username)}</span>
           </div>
         </div>
@@ -24,7 +24,7 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
             </span>
           </div>
           <p class="mt-1 text-gray-900 dark:text-white">{@post.body}</p>
-          <div class="flex items-center justify-between mt-3">
+          <div class="flex justify-between items-center mt-3">
             <div class="flex items-center space-x-8">
               <a
                 href="#"
@@ -54,12 +54,12 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
               </.button>
               <div
                 id={"post-actions-#{@id}"}
-                class="absolute right-0 z-10 hidden w-48 mt-2 bg-white rounded-lg ring-1 ring-black ring-opacity-5 dark:bg-slate-700"
+                class="hidden absolute right-0 z-10 mt-2 w-48 bg-white rounded-lg ring-1 ring-black ring-opacity-5 dark:bg-slate-700"
               >
                 <div role="menu" aria-orientation="vertical">
                   <.link
                     patch={~p"/posts/#{@post}/edit"}
-                    class="flex items-center justify-between px-5 py-2 text-sm font-semibold text-gray-600 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-600"
+                    class="flex justify-between items-center px-5 py-2 text-sm font-semibold text-gray-600 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-600"
                     role="menuitem"
                   >
                     <span>Update Post</span>
@@ -68,7 +68,7 @@ defmodule PurpleSkyAppWeb.PostLive.PostComponent do
                   <.link
                     phx-click={JS.push("delete", value: %{id: @post.id})}
                     data-confirm="Are you sure?"
-                    class="flex items-center justify-between px-5 py-2 text-sm font-semibold text-gray-600 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-600"
+                    class="flex justify-between items-center px-5 py-2 text-sm font-semibold text-gray-600 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-600"
                     role="menuitem"
                   >
                     <span>Delete Post</span>

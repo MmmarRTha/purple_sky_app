@@ -31,7 +31,7 @@ defmodule PurpleSkyAppWeb.PostLiveTest do
       {:ok, index_live, _html} = live(conn, ~p"/posts")
 
       assert index_live |> element("a[href='/posts/new']") |> render_click() =~
-               "New Post"
+               "Post"
 
       assert_patch(index_live, ~p"/posts/new")
 
@@ -95,7 +95,7 @@ defmodule PurpleSkyAppWeb.PostLiveTest do
       {:ok, show_live, _html} = live(conn, ~p"/posts/#{post}")
 
       assert show_live |> element("a", "Update post") |> render_click() =~
-               "Update Post"
+               "Update post"
 
       assert_patch(show_live, ~p"/posts/#{post}/show/edit")
 

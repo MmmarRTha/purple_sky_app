@@ -48,34 +48,34 @@ defmodule PurpleSkyAppWeb.CoreComponents do
       phx-mounted={@show && show_modal(@id)}
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
-      class="relative z-50 hidden"
+      class="hidden relative z-50"
     >
       <div id={"#{@id}-bg"} class="fixed inset-0 transition-opacity bg-zinc-50/90" aria-hidden="true" />
       <div
-        class="fixed inset-0 overflow-y-auto"
+        class="overflow-y-auto fixed inset-0"
         aria-labelledby={"#{@id}-title"}
         aria-describedby={"#{@id}-description"}
         role="dialog"
         aria-modal="true"
         tabindex="0"
       >
-        <div class="flex items-center justify-center min-h-full">
-          <div class="w-full max-w-3xl p-4 sm:p-6 lg:py-8">
+        <div class="flex justify-center items-center min-h-full">
+          <div class="w-full max-w-xl sm:p-6 lg:py-8">
             <.focus_wrap
               id={"#{@id}-container"}
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="relative hidden transition bg-white shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl p-14 ring-1"
+              class="hidden relative bg-white rounded-2xl ring-1 shadow-lg transition dark:bg-slate-900 shadow-zinc-700/10 ring-zinc-700/10"
             >
-              <div class="absolute top-6 right-5">
+              <div class="absolute left-5 top-6">
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="flex-none p-3 -m-3 opacity-20 hover:opacity-40"
+                  class="flex-none px-4 py-2 -m-3 text-purple-600 rounded-full hover:bg-opacity-40 hover:bg-purple-300 dark:hover:bg-purple-400"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="w-5 h-5" />
+                  Cancel
                 </button>
               </div>
               <div id={"#{@id}-content"}>
@@ -121,13 +121,13 @@ defmodule PurpleSkyAppWeb.CoreComponents do
       ]}
       {@rest}
     >
-      <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
+      <p :if={@title} class="flex gap-1.5 items-center text-sm font-semibold leading-6">
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="w-4 h-4" />
         <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="w-4 h-4" />
         {@title}
       </p>
       <p class="mt-2 text-sm leading-5">{msg}</p>
-      <button type="button" class="absolute p-2 group top-1 right-1" aria-label={gettext("close")}>
+      <button type="button" class="absolute top-1 right-1 p-2 group" aria-label={gettext("close")}>
         <.icon name="hero-x-mark-solid" class="w-5 h-5 opacity-40 group-hover:opacity-70" />
       </button>
     </div>
@@ -158,7 +158,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
         hidden
       >
         {gettext("Attempting to reconnect")}
-        <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
+        <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
       </.flash>
 
       <.flash
@@ -170,7 +170,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
         hidden
       >
         {gettext("Hang in there while we get back on track")}
-        <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
+        <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
       </.flash>
     </div>
     """
@@ -204,7 +204,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
     <.form :let={f} for={@for} as={@as} {@rest}>
       <div class="mt-10 space-y-8">
         {render_slot(@inner_block, f)}
-        <div :for={action <- @actions} class="flex items-center justify-between gap-6 mt-2">
+        <div :for={action <- @actions} class="flex gap-6 justify-between items-center mt-2">
           {render_slot(action, f)}
         </div>
       </div>
@@ -310,7 +310,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
 
     ~H"""
     <div>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+      <label class="flex gap-4 items-center text-sm leading-6 text-zinc-600">
         <input type="hidden" name={@name} value="false" disabled={@rest[:disabled]} />
         <input
           type="checkbox"
@@ -335,7 +335,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="block w-full mt-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class="block mt-2 w-full bg-white rounded-md border border-gray-300 shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
         multiple={@multiple}
         {@rest}
       >
@@ -355,9 +355,9 @@ defmodule PurpleSkyAppWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-          "block w-full sm:leading-6 min-h-[6rem] bg-slate-900",
-          @errors == [] && "border-none",
-          @errors != [] && "border-none"
+          "block w-full sm:leading-6",
+          @errors == [] && "focus:outline-none focus:ring-0 border-0",
+          @errors != [] && "focus:outline-none focus:ring-0 border-0"
         ]}
         {@rest}
       >{Phoenix.HTML.Form.normalize_value("textarea", @value)}</textarea>
@@ -377,7 +377,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
+          "mt-2 block w-full rounded-lg focus:ring-0 sm:text-sm sm:leading-6",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-300 focus:border-rose-300"
         ]}
@@ -396,7 +396,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="block text-sm font-semibold leading-6">
       {render_slot(@inner_block)}
     </label>
     """
@@ -410,7 +410,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
   def error(assigns) do
     ~H"""
     <p class="flex gap-3 mt-3 text-sm leading-6 text-rose-400">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
+      <.icon name="hero-exclamation-circle-mini" class="flex-none mt-0.5 w-5 h-5" />
       {render_slot(@inner_block)}
     </p>
     """
@@ -473,11 +473,11 @@ defmodule PurpleSkyAppWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="px-4 overflow-y-auto sm:overflow-visible sm:px-0">
+    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
       <table class="w-[40rem] mt-11 sm:w-full">
         <thead class="text-sm leading-6 text-left text-zinc-500">
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal">{col[:label]}</th>
+            <th :for={col <- @col} class="p-0 pr-6 pb-4 font-normal">{col[:label]}</th>
             <th :if={@action != []} class="relative p-0 pb-4">
               <span class="sr-only">{gettext("Actions")}</span>
             </th>
@@ -586,7 +586,7 @@ defmodule PurpleSkyAppWeb.CoreComponents do
   ## Examples
 
       <.icon name="hero-x-mark-solid" />
-      <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
+      <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
   """
   attr :name, :string, required: true
   attr :class, :string, default: nil
